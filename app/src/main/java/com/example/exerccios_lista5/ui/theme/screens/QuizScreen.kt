@@ -19,8 +19,10 @@ import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
-import androidx.compose.runtime.R
+import com.example.exerccios_lista5.R
+
 import androidx.compose.runtime.collectAsState
+import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
@@ -41,14 +43,28 @@ fun QuizScreen(vm: QuizViewModel, onFinish: () -> Unit) {
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
         Image(
-            painterResource(R.drawable.quiz_logo), null, Modifier.size(64.dp))
+            painterResource(
+            R.drawable.quiz_logo),
+            null,
+            Modifier.size(64.dp)
+        )
+
         Spacer(Modifier.height(16.dp))
-        Surface(color = Color(0xFF72D8A8), shape = RoundedCornerShape(8.dp), border = BorderStroke(1.dp, Color.Black)) {
+        Surface(
+            color = Color(0xFF72D8A8),
+            shape = RoundedCornerShape(8.dp),
+            border = BorderStroke(1.dp, Color.Black)
+        ) {
             Text("Pergunta ${state.currentIndex + 1} de ${state.questions.size}",
                 Modifier.padding(horizontal = 32.dp, vertical = 8.dp), fontSize = 20.sp)
         }
+
         Spacer(Modifier.height(16.dp))
-        Card(colors = CardDefaults.cardColors(containerColor = Color.White), modifier = Modifier.fillMaxWidth()) {
+        Card(
+            colors = CardDefaults.cardColors(containerColor = Color.White),
+            modifier = Modifier.fillMaxWidth()
+        ) {
+
             Column(Modifier.padding(16.dp)) {
                 Text(state.current.text, fontSize = 20.sp)
                 Spacer(Modifier.height(16.dp))
@@ -59,6 +75,7 @@ fun QuizScreen(vm: QuizViewModel, onFinish: () -> Unit) {
                         i == state.selectedIndex -> Color(0xFFE53935)        // vermelho: errada escolhida
                         else -> Color.White
                     }
+
                     OutlinedButton(
                         onClick = { vm.answer(i) },
                         colors = ButtonDefaults.outlinedButtonColors(containerColor = bg, contentColor = Color.Black),

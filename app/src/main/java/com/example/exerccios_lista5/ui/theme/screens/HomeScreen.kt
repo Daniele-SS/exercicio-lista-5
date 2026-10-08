@@ -1,4 +1,4 @@
-package com.example.exerccios_lista5.ui.theme.screens
+package com.example.exerccios_lista5.ui.screens
 
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
@@ -15,7 +15,6 @@ import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.OutlinedTextField
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.R
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
@@ -24,6 +23,7 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import com.example.exerccios_lista5.R
 import com.example.exerccios_lista5.viewmodel.QuizViewModel
 
 @Composable
@@ -31,29 +31,34 @@ fun HomeScreen(vm: QuizViewModel, onStart: () -> Unit) {
     val state by vm.state.collectAsState()
 
     Column(
-        Modifier.fillMaxSize().background(Color(0xFF62DBFB)).padding(32.dp),
+        modifier = Modifier
+            .fillMaxSize()
+            .background(Color(0xFF62DBFB))
+            .padding(32.dp),
         horizontalAlignment = Alignment.CenterHorizontally,
         verticalArrangement = Arrangement.Center
     ) {
         Image(
-            painterResource(
-                R.drawable.quiz_logo),
+            painter = painterResource(id = R.drawable.quiz_logo),
             contentDescription = "Logo",
-            Modifier.size(160.dp)
+            modifier = Modifier.size(160.dp)
         )
 
-        Spacer(Modifier.height(48.dp))
-        Text("QUIZATRON 3000", fontSize = 28.sp)
-        Spacer(Modifier.height(24.dp))
+        Spacer(modifier = Modifier.height(48.dp))
+
+        Text(text = "QUIZATRON 3000", fontSize = 28.sp)
+
+        Spacer(modifier = Modifier.height(24.dp))
 
         OutlinedTextField(
             value = state.playerName,
-            onValueChange = vm::setName,
+            onValueChange = { vm.setName(it) },
             label = { Text("Seu nome") },
             singleLine = true
         )
 
-        Spacer(Modifier.height(24.dp))
+        Spacer(modifier = Modifier.height(24.dp))
+
         Button(
             onClick = onStart,
             enabled = state.playerName.isNotBlank(),
@@ -62,6 +67,8 @@ fun HomeScreen(vm: QuizViewModel, onStart: () -> Unit) {
                 contentColor = Color.Black
             ),
             modifier = Modifier.fillMaxWidth(0.7f)
-        ) { Text("COMEÇAR!") }
+        ) {
+            Text("COMEÇAR!")
+        }
     }
 }

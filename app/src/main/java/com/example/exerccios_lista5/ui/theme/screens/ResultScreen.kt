@@ -16,7 +16,9 @@ import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.R
+
+import com.example.exerccios_lista5.R
+
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
@@ -30,18 +32,31 @@ import com.example.exerccios_lista5.viewmodel.QuizViewModel
 @Composable
 fun ResultScreen(vm: QuizViewModel, onRestart: () -> Unit) {
     val state by vm.state.collectAsState()
-    Column(Modifier.fillMaxSize(), horizontalAlignment = Alignment.CenterHorizontally) {
-        Image(painterResource(R.drawable.quiz_logo), null, Modifier.padding(16.dp).size(64.dp))
+
+    Column(Modifier.fillMaxSize(),
+        horizontalAlignment = Alignment.CenterHorizontally)
+    {
+        Image(painterResource(
+            R.drawable.quiz_logo),
+            null,
+            Modifier.padding(16.dp).size(64.dp)
+        )
         Column(
             Modifier.fillMaxWidth().background(Color(0xFF62DBFB)).padding(24.dp),
             horizontalAlignment = Alignment.CenterHorizontally
         ) {
-            Surface(color = Color(0xFF72D8A8), shape = RoundedCornerShape(8.dp), border = BorderStroke(1.dp, Color.Black)) {
+            Surface(
+                color = Color(0xFF72D8A8),
+                shape = RoundedCornerShape(8.dp),
+                border = BorderStroke(1.dp, Color.Black)
+            ) {
                 Text("Bom trabalho, ${state.playerName}!", Modifier.padding(horizontal = 24.dp, vertical = 8.dp), fontSize = 20.sp)
             }
+
             Spacer(Modifier.height(24.dp))
             Text("Você acertou ${state.score} de ${state.questions.size} perguntas", fontSize = 20.sp)
         }
+
         Spacer(Modifier.height(32.dp))
         Button(
             onClick = onRestart,
